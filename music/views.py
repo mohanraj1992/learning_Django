@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from django.http import HttpResponse
@@ -31,10 +31,6 @@ def detail(request, album_id):
 
     #this is for old
     #return HttpResponse("<h2>Details for Album id:" + str(album_id) + "</h2>")
-
-    # below is covered on tutorial 16
-    try:
-        album=Album.objects.get(pk=album_id)
-    except Album.DoesNotExist:
-        raise Http404("Album does not eist")
+    
+    album = get_object_or_404(Album , pk=album_id)
     return render(request,'music/detail.html', {'album': album})
